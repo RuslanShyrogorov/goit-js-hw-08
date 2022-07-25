@@ -23,6 +23,12 @@ formRef.addEventListener('submit', onSubmitForm)
 function onSubmitForm(evt) {
   evt.preventDefault()
 
+  const { email, message } = evt.currentTarget;
+  if (email.value === "" || message.value === "") {
+    alert("Please fill in all the fields!")
+    return
+  }
+
   const savedFormData = localStorage.getItem(FORM_LOCAL_STORAGE_KEY)
   const parsSavedFormData = JSON.parse(savedFormData)
   console.log(parsSavedFormData);
@@ -41,6 +47,8 @@ function checkFormDataInLocalStorage() {
     formRef.elements.message.value = parsSavedFormData.message
   }
 }
+
+
 
 
 
