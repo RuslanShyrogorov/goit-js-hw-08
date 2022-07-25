@@ -7,31 +7,31 @@ const player = new Player(iframe);
 const STORAGE_KEY = 'videoplayer-current-time';
 
 
-function throttleSeconds(currentTime) {
+function saveTime(currentTime) {
   const videoTime = JSON.stringify(currentTime);
   localStorage.setItem(STORAGE_KEY, videoTime);
 }
 
 let parsVideoTime;
 
-player.on('timeupdate', throttle(throttleSeconds, 1000));
+player.on('timeupdate', throttle(saveTime, 1000));
 
-iframe.addEventListener('play', throttleSeconds);
+iframe.addEventListener('play', saveTime);
 
-const saveVideoTime = localStorage.getItem(STORAGE_KEY);
+const savedVideoTime = localStorage.getItem(STORAGE_KEY);
 // console.log(saveVideoTime);
 
 
-function checkParsTime(saveVideoTime) {
-  if (saveVideoTime) {
-    parsVideoTime = JSON.parse(saveVideoTime);
+function checkParsSaveTime(savedVideoTime) {
+  if (savedVideoTime) {
+    parsVideoTime = JSON.parse(savedVideoTime);
   } else {
     parsVideoTime = 0;
   }
   
 }
 
-checkParsTime(saveVideoTime)
+checkParsSaveTime(savedVideoTime)
 // console.log(parsVideoTime);
 
 player
